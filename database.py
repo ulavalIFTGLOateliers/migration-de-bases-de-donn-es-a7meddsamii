@@ -33,7 +33,6 @@ class Database:
         )
 
         self.cursor = self.connection.cursor()
-        self.cursor.execute("USE atelier_bd")
 
 
 

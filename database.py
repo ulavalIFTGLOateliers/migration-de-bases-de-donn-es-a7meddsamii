@@ -11,7 +11,7 @@ class Database:
         """
             Chargez les variables d'environnement de votre fichier .env, puis complétez les lignes 15 à 19 afin de récupérer les valeurs de ces variables
         """
-        load_dotenv('environnement.env')
+        load_dotenv()
         self.host = os.environ.get("HOST")
         self.port = int(os.environ.get("PORT"))
         self.database = os.environ.get("DATABASE")

@@ -11,12 +11,12 @@ class Database:
         """
             Chargez les variables d'environnement de votre fichier .env, puis complétez les lignes 15 à 19 afin de récupérer les valeurs de ces variables
         """
-
-        self.host =
-        self.port =
-        self.database =
-        self.user =
-        self.password =
+        load_dotenv('environnement.env')
+        self.host = os.environ.get("HOST")
+        self.port = int(os.environ.get("PORT"))
+        self.database = os.environ.get("DATABASE")
+        self.user = os.environ.get("USER")
+        self.password = os.environ.get("PASSWORD")
 
         self._open_sql_connection()
 
@@ -33,6 +33,9 @@ class Database:
         )
 
         self.cursor = self.connection.cursor()
+        self.cursor.execute("USE atelier_bd")
+
+
 
     def push_migration(self):
         migration_to_push = self.migration_counter + 1
@@ -61,7 +64,6 @@ class Database:
     def get_table_names(self):
         req = f"SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_type = 'BASE TABLE' AND table_schema = '{self.database}';"
         self.cursor.execute(req)
-
         res = [x[0] for x in self.cursor.fetchall()]
 
         return res
